@@ -15,16 +15,15 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
-import java.io.File
-import java.net.HttpURLConnection
-import java.net.URL
+import com.example.paradigmasdesoftware.service.FuelPriceServiceMinetur
+import com.example.paradigmasdesoftware.service.RouteCostService
 
 class MainActivity : ComponentActivity() {
+    private val routeCostService = RouteCostService(FuelPriceServiceMinetur())
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val origen = "Castellón"
+            val origen = "Castellón de la Plana"
             val destino = "Valencia"
             val distanciaKm = 75.0
 
@@ -118,59 +117,18 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private suspend fun conectarYCalcularCosteManual(distanciaKm: Double): String = withContext(Dispatchers.IO) {
-        try {
-            val urlString = "https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/FiltroMunicipio/1813"
-            val url = URL(urlString)
-            val connection = url.openConnection() as HttpURLConnection
-            connection.requestMethod = "GET"
-            connection.connectTimeout = 10000
-            connection.readTimeout = 10000
-
-            // 1. Obtenemos el texto crudo de la respuesta
-            val jsonStringCrudo = connection.inputStream.bufferedReader().use { it.readText() }
-            connection.disconnect()
-
-            // 2. Crear la carpeta "ficheros_intercambio" si no existe
-            val carpeta = File(filesDir, "ficheros_intercambio")
-            if (!carpeta.exists()) {
-                carpeta.mkdirs()
-            }
-
-            // 3. Guardar el archivo JSON en esa carpeta
-            val archivoJson = File(carpeta, "respuesta_carburantes.json")
-            archivoJson.writeText(jsonStringCrudo)
-
-            // 4. Extracción manual de los datos del JSON
-            val jsonObjectRoot = JSONObject(jsonStringCrudo)
-            val listaGasolineras = jsonObjectRoot.getJSONArray("ListaEESSPrecio")
-
-            var precioLitroEncontrado: Double? = null
-
-            for (i in 0 until listaGasolineras.length()) {
-                val gasolinera = listaGasolineras.getJSONObject(i)
-                val precioString = gasolinera.optString("Precio Gasolina 95 E5", "")
-
-                if (precioString.isNotBlank()) {
-                    precioLitroEncontrado = precioString.replace(",", ".").toDoubleOrNull()
-                    if (precioLitroEncontrado != null) break
-                }
-            }
-
-            if (precioLitroEncontrado != null) {
+    private suspend fun conectarYCalcularCosteManual(distanciaKm: Double): String =
+        withContext(Dispatchers.IO) {
+            try {
                 val consumoMedio = 6.5
-                val costeTotal = (distanciaKm / 100.0) * consumoMedio * precioLitroEncontrado
-
-                "Precio combustible: $precioLitroEncontrado €/l\n" +
+                val result = routeCostService.calculateFuelCost(
+                    distanciaKm, consumoMedio, "12", "Castellón"
+                )
+                "Precio combustible: ${result.fuelPricePerLiter} €/l\n" +
                         "Consumo estimado: $consumoMedio l/100km\n\n" +
-                        "Coste estimado: ${String.format("%.2f", costeTotal)} €\n\n" +
-                        "📁 Fichero guardado en:\n${archivoJson.name}"
-            } else {
-                "No se encontró el precio de la gasolina."
+                        "Coste estimado: ${String.format("%.2f", result.totalCost)} €"
+            } catch (e: Exception) {
+                "Error: ${e.localizedMessage}"
             }
-
-        } catch (e: Exception) {
-            "Error de conexión: ${e.localizedMessage}"
         }
-    }
 }

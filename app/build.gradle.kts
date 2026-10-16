@@ -37,6 +37,8 @@ android {
 }
 
 dependencies {
+    testImplementation("io.mockk:mockk:1.13.12")
+    testImplementation("org.json:json:20240303")
     implementation("com.squareup.retrofit2:retrofit:3.0.0")
     implementation("com.squareup.retrofit2:converter-gson:3.0.0")
     implementation(platform(libs.androidx.compose.bom))
