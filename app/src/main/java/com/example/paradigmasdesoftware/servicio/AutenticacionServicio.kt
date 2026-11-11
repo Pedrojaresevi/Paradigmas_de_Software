@@ -27,4 +27,12 @@ class AutenticacionServicio(
         //   HU02-E02 → WrongPasswordException
         throw NotImplementedError("SUT sin implementar todavía")
     }
+
+    suspend fun cerrarSesion(sesionActiva: Boolean, conexionBBDD: Boolean, credencialActiva: Boolean): Boolean {
+        // TODO ATDD: implementar en mini-iteraciones durante la iteración 1
+        //   HU03-E04 → SessionNotActiveException
+        //   HU03-E03 → NoConnectionException
+        //   HU03-E02 → InactiveCredentialException
+        throw NotImplementedError("SUT sin implementar todavía")
+    }
 }

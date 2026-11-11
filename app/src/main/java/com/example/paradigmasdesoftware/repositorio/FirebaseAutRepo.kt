@@ -17,4 +17,9 @@ class FirebaseAutRepo : AutenticacionRepo {
         // TODO ATDD: implementar con Firebase Authentication en mini-iteraciones
         throw NotImplementedError("SUT sin implementar todavía")
     }
+
+    override suspend fun cerrarSesion(sesionActiva: Boolean, conexionBBDD: Boolean, credencialActiva: Boolean): Boolean {
+        // TODO ATDD: implementar con Firebase Authentication en mini-iteraciones
+        throw NotImplementedError("SUT sin implementar todavía")
+    }
 }
