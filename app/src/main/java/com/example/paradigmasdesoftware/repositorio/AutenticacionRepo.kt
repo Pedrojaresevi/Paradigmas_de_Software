@@ -9,4 +9,5 @@ import com.example.paradigmasdesoftware.modelo.Usuario
 interface AutenticacionRepo {
     suspend fun registrar(email: String, contraseña: String): Usuario
     suspend fun iniciarSesion(email: String, contraseña: String): Usuario
+    suspend fun cerrarSesion(sesionActiva: Boolean, conexionBBDD: Boolean, credencialActiva: Boolean): Boolean
 }
