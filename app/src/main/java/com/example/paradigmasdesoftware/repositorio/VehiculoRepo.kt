@@ -10,4 +10,5 @@ interface VehiculoRepo {
     suspend fun darAltaVehiculo(vehiculo: Vehiculo): Boolean
     suspend fun listarVehiculos(): List<Vehiculo>
     suspend fun eliminarVehiculo(vehiculo: Vehiculo): Boolean
+    suspend fun modificarVehiculo(vehiculo: Vehiculo): Boolean
 }
