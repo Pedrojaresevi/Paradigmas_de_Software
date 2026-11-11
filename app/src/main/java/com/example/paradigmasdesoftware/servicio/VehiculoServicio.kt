@@ -4,7 +4,7 @@ import com.example.paradigmasdesoftware.modelo.Vehiculo
 import com.example.paradigmasdesoftware.repositorio.VehiculoRepo
 
 /**
- * SUT (System Under Test) de la HU13/HU14: gestión de vehículos.
+ * SUT (System Under Test) de las HU13/HU14/HU15: gestión de vehículos.
  * Contiene la lógica de negocio (validaciones); el repositorio solo persiste.
  *
  * ATDD: implementación mínima SIN lógica para que las pruebas de aceptación fallen.
@@ -28,6 +28,17 @@ class VehiculoServicio(
     suspend fun listarVehiculos(conexionBBDD: Boolean): List<Vehiculo> {
         // TODO ATDD: implementar en mini-iteraciones durante la iteración 1
         //   HU14-E03 → NoConnectionException
+        throw NotImplementedError("SUT sin implementar todavía")
+    }
+
+    suspend fun eliminarVehiculo(
+        vehiculo: Vehiculo,
+        sesionActiva: Boolean,
+        conexionBBDD: Boolean
+    ): Boolean {
+        // TODO ATDD: implementar en mini-iteraciones durante la iteración 1
+        //   HU15-E03 → SessionNotActiveException
+        //   HU15-E02 → NoConnectionException
         throw NotImplementedError("SUT sin implementar todavía")
     }
 }
