@@ -11,4 +11,9 @@ class FirebaseVehiculoRepo : VehiculoRepo {
         // TODO ATDD: implementar con Firebase en mini-iteraciones
         throw NotImplementedError("SUT sin implementar todavía")
     }
+
+    override suspend fun listarVehiculos(): List<Vehiculo> {
+        // TODO ATDD: implementar con Firebase en mini-iteraciones
+        throw NotImplementedError("SUT sin implementar todavía")
+    }
 }

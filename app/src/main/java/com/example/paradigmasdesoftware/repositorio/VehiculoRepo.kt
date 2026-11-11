@@ -8,4 +8,5 @@ import com.example.paradigmasdesoftware.modelo.Vehiculo
  */
 interface VehiculoRepo {
     suspend fun darAltaVehiculo(vehiculo: Vehiculo): Boolean
+    suspend fun listarVehiculos(): List<Vehiculo>
 }
