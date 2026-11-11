@@ -12,4 +12,9 @@ class FirebaseAutRepo : AutenticacionRepo {
         // TODO ATDD: implementar con Firebase Authentication en mini-iteraciones
         throw NotImplementedError("SUT sin implementar todavía")
     }
+
+    override suspend fun iniciarSesion(email: String, contraseña: String): Usuario {
+        // TODO ATDD: implementar con Firebase Authentication en mini-iteraciones
+        throw NotImplementedError("SUT sin implementar todavía")
+    }
 }

@@ -19,4 +19,12 @@ class AutenticacionServicio(
         //   E04 → NoConnectionException
         throw NotImplementedError("SUT sin implementar todavía")
     }
+
+    suspend fun iniciarSesion(email: String, contraseña: String): Usuario {
+        // TODO ATDD: implementar en mini-iteraciones durante la iteración 1
+        //   HU02-E03 → InvalidEmailException
+        //   HU02-E04 → UserNotFoundException
+        //   HU02-E02 → WrongPasswordException
+        throw NotImplementedError("SUT sin implementar todavía")
+    }
 }
