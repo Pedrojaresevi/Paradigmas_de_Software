@@ -11,4 +11,14 @@ class CuentaServicio(
         // HU04-E03 -> throw SessionNotActiveException()
         throw NotImplementedError("SUT sin implementar todavía")
     }
+
+    suspend fun modificarDatos(
+        emailActual: String,
+        nuevoEmail: String,
+        sesionActiva: Boolean,
+        conexionBBDD: Boolean
+    ): Boolean {
+        // TODO ATDD: implementar validaciones de sesión, duplicados y llamadas al repo
+        throw NotImplementedError("SUT sin implementar todavía")
+    }
 }

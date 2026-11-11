@@ -5,4 +5,9 @@ class FirebaseCuentaRepo : CuentaRepo {
         // TODO ATDD: implementar con Firebase
         throw NotImplementedError("SUT sin implementar todavía")
     }
+
+    override suspend fun modificarDatos(emailActual: String, nuevoEmail: String): Boolean {
+        // TODO ATDD: implementar con Firebase
+        throw NotImplementedError("SUT sin implementar todavía")
+    }
 }
